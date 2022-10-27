@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovementController : MonoBehaviour
+public class PlayerMovementController : StateMachine
 {
     private PlayerInputController _playerInputController;
     private CameraController _camController;
@@ -46,6 +46,11 @@ public class PlayerMovementController : MonoBehaviour
     
 
     public bool IsMoved { get { return _movement.ReadValue<Vector2>() != Vector2.zero; } }
+
+    private void FixedUpdate()
+    {
+        gameObject.SendMessage("StateUpdate", SendMessageOptions.DontRequireReceiver);
+    }
 
     // Idle로 돌아올 때 기초 상태 변화.
     private void Idle_EnterState()
