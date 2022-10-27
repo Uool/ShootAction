@@ -6,7 +6,7 @@ public interface IActionHandler
 
     void StartAction(PlayerController controller);
 
-    bool IsActive();
+    bool IsActive(PlayerController controller);
 
     bool CanEndAction(PlayerController controller);
 
@@ -26,7 +26,7 @@ public abstract class ActionHandler : IActionHandler
         _StartAction(controller);
     }
 
-    public virtual bool IsActive() { return active; }
+    public virtual bool IsActive(PlayerController controller) { return active; }
 
     protected abstract void _StartAction(PlayerController controller);
 

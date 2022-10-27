@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovementController : MonoBehaviour
 {
     private PlayerInputController _playerInputController;
+    private CameraController _camController;
     private InputAction _movement;
     private Animator _animator;
     private Rigidbody _playerRigid;
@@ -28,21 +29,57 @@ public class PlayerMovementController : MonoBehaviour
     public void SetupMovement()
     {
         _playerInputController = new PlayerInputController();
+        _camController = FindObjectOfType<CameraController>();
+        _camController.SetCamera();
         _playerRigid = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
 
-    }
-    private void OnEnable()
-    {
         _movement = _playerInputController.Player.Movement;
         _movement.Enable();
+
     }
 
     private void OnDisable()
     {
         _movement.Disable();
     }
-    public Vector3 UpdateMovement()
+    
+
+    public bool IsMoved { get { return _movement.ReadValue<Vector2>() != Vector2.zero; } }
+
+    // Idle로 돌아올 때 기초 상태 변화.
+    private void Idle_EnterState()
+    {
+        Debug.Log("Idle_EnterState");
+    }
+
+    private void Idle_UpdateState()
+    {
+        _currentVelocity = Vector3.MoveTowards(_currentVelocity, Vector3.zero, Time.deltaTime);
+    }
+
+    private void Idle_ExitState()
+    {
+        Debug.Log("Idle_EnterState");
+    }
+
+    private void Move_EnterState()
+    {
+        Debug.Log("Move_EnterState");
+    }
+
+    private void Move_UpdateState()
+    {
+        transform.position += UpdateMovement();
+        transform.rotation = UpdatePlayerRotation();
+    }
+
+    private void Move_ExitState()
+    {
+        Debug.Log("Move_EnterState");
+    }
+
+    private Vector3 UpdateMovement()
     {
         _playerMovement.Set(_movement.ReadValue<Vector2>().x, 0f, _movement.ReadValue<Vector2>().y);
         _currentVelocity = Vector3.MoveTowards(_currentVelocity,
@@ -51,7 +88,7 @@ public class PlayerMovementController : MonoBehaviour
 
         return _currentVelocity * Time.deltaTime;
     }
-    public Quaternion UpdatePlayerRotation()
+    private Quaternion UpdatePlayerRotation()
     {
         if (_playerMovement != Vector3.zero)
             _prevMovement = _playerMovement;
@@ -61,6 +98,4 @@ public class PlayerMovementController : MonoBehaviour
 
         return Quaternion.Euler(rotation.x, rotation.y, 0f);
     }
-
-    public bool IsMoved { get { return _movement.ReadValue<Vector2>() != Vector2.zero; } }
 }

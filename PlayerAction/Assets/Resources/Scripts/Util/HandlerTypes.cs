@@ -2,7 +2,6 @@
 public class HandlerTypes
 {
     public static readonly string Attack = "Attack";
-    public static readonly string Block = "Block";
     public static readonly string Death = "Death";
     public static readonly string Dodge = "Dodge";
     public static readonly string Null = "Null";

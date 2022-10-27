@@ -10,7 +10,7 @@ public abstract class InstantActionHandler : ActionHandler
         base.EndAction(controller);
     }
 
-    public override bool IsActive()
+    public override bool IsActive(PlayerController controller)
     {
         return false;
     }

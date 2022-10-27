@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Idle : MonoBehaviour
+public class Idle : InstantActionHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    public override bool CanStartAction(PlayerController controller)
     {
-        
+        if (controller.isMoving) { return controller.MoveMagnitude < 0.1f; }
+
+        return true;        
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void _StartAction(PlayerController controller)
     {
-        
+        controller.CurrentState = CharacterState.Idle;
+    }
+
+    public override bool IsActive(PlayerController controller)
+    {
+        return controller.CurrentState == CharacterState.Idle;
     }
 }

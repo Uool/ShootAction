@@ -6,15 +6,15 @@ public class Move : InstantActionHandler
 {
     public override bool CanStartAction(PlayerController controller)
     {
-        return controller.MoveMagnitude > 0.1f;
+        return controller.MoveMagnitude > 0.2f;
     }
 
     protected override void _StartAction(PlayerController controller)
     {
-        controller.currentState = CharacterState.Move;
+        controller.CurrentState = CharacterState.Move;
     }
-    public override bool IsActive()
+    public override bool IsActive(PlayerController controller)
     {
-        return true;
+        return controller.CurrentState == CharacterState.Move;
     }
 }
