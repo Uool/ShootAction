@@ -21,7 +21,11 @@ public abstract class ActionHandler : IActionHandler
 
     public virtual void StartAction(PlayerController controller)
     {
-        if (CanStartAction(controller)) { return; }
+        if (false == CanStartAction(controller))
+        {
+            return;
+        }
+
         active = true;
         _StartAction(controller);
     }

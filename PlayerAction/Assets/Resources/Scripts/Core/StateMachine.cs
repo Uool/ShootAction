@@ -8,6 +8,7 @@ public enum CharacterState
     Idle = 0,
     Move = 1,
     Jump = 2,
+    MoveAttack = 3,
 }
 
 public class StateMachine : MonoBehaviour
@@ -22,7 +23,7 @@ public class StateMachine : MonoBehaviour
     }
 
     public State state = new State();
-    public Enum currentSTate
+    public Enum currentState
     {
         get => state.currentState;
         set
@@ -41,7 +42,7 @@ public class StateMachine : MonoBehaviour
 
     private void ChangingState()
     {
-        lastState = currentSTate;
+        lastState = currentState;
         _timeEnteredState = Time.time;
     }
 
@@ -50,8 +51,8 @@ public class StateMachine : MonoBehaviour
         if (state.exitState != null) { state.exitState(); }
 
         // Now we need to configure all of the methods.
-        state.updateState = ConfigureDelegate<Action>("SuperUpdate", DoNothing);
-        state.startState = ConfigureDelegate<Action>("EnterState", DoNothing);
+        state.updateState = ConfigureDelegate<Action>("UpdateState", DoNothing);
+        state.startState = ConfigureDelegate<Action>("StartState", DoNothing);
         state.exitState = ConfigureDelegate<Action>("ExitState", DoNothing);
 
         if (state.startState != null) { state.startState(); }
@@ -80,10 +81,15 @@ public class StateMachine : MonoBehaviour
         }
         return returnValue as T;
     }
+
     private void StateUpdate()
     {
+        EarlyUpdate();
         state.updateState();
     }
+
+    protected virtual void EarlyUpdate() { }
+
     private static void DoNothing() { }
     
 }

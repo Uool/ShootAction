@@ -1,20 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class Move : InstantActionHandler
+public class Move : MoveActionHandler
 {
+    public Move(PlayerMovementController movement) : base(movement)
+    {
+
+    }
     public override bool CanStartAction(PlayerController controller)
     {
-        return controller.MoveMagnitude > 0.2f;
+        // Todo: 추후 움직임이 잠겨야 하는 상황에서 controller.canMove 추가
+        return controller.MoveInput.sqrMagnitude > 0.1f;
     }
 
     protected override void _StartAction(PlayerController controller)
     {
-        controller.CurrentState = CharacterState.Move;
+        _movement.currentState = CharacterState.Move;
     }
     public override bool IsActive(PlayerController controller)
-    {
-        return controller.CurrentState == CharacterState.Move;
-    }
+    { return _movement.currentState != null && (CharacterState)_movement.currentState == CharacterState.Move; }
 }
