@@ -79,9 +79,7 @@ public class PlayerInputController : MonoBehaviour
         if (false == _playerController.canFace) return;
 
         if (_face.IsPressed())
-        {
-            Debug.Log("조준중");
-            
+        {            
             // 화면의 마우스 위치 -> 월드 위치로 변환
             var playerPlane = new Plane(Vector3.up, transform.position);
             Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());

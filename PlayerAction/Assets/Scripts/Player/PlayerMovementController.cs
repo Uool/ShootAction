@@ -48,6 +48,7 @@ public class PlayerMovementController : StateMachine
 
     private void FixedUpdate()
     {
+        //gameObject.SendMessage("StateUpdate", SendMessageOptions.DontRequireReceiver);
         transform.position += _currentVelocity * Time.deltaTime;
         if (_playerController.isFacing)
             transform.rotation = FacingPlayerRotation(_playerController.faceInput);

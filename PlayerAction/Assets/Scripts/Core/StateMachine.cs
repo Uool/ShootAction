@@ -9,6 +9,7 @@ public class StateMachine : MonoBehaviour
     {
         public Action startState = DoNothing;
         public Action updateState = DoNothing;
+        public Action fixedUpdateState = DoNothing;
         public Action exitState = DoNothing;
 
         public Enum currentState;
@@ -77,8 +78,16 @@ public class StateMachine : MonoBehaviour
     private void StateUpdate()
     {
         EarlyUpdate();
-        state.updateState();
+        if (state.updateState != null)
+            state.updateState();
     }
+
+    private void FixedStateUpdate()
+    {
+        if (state.fixedUpdateState != null)
+            state.fixedUpdateState();
+    }
+
 
     protected virtual void EarlyUpdate() { }
 

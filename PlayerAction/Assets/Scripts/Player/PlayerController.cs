@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator _animator;
+    private WeaponController _weaponController;
 
     #region Move_Parameter
     private Vector3 _moveInput;
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _weaponController = GetComponentInChildren<WeaponController>();
+
         // 이건 나중에 Manager을 통해서 실행되게 끔 해야됨.
         SetupHandler();
     }
@@ -126,6 +129,8 @@ public class PlayerController : MonoBehaviour
         _animator.SetActionTrigger(AnimatorTrigger.AttackTrigger, attackNumber);
         _animator.SetFloat(AnimationParameters.MoveVelocity, _moveInput.magnitude);
         _animator.SetBool(AnimationParameters.MousePressed, true);
+
+        _weaponController.TryShoot();
     }
     public void EndAttack()
     {
