@@ -16,7 +16,7 @@ namespace BehaviourTree
 
         private void Update()
         {
-            if (null != _root && isDead)
+            if (null != _root && !isDead)
                 _root.Evaluate();
         }
 

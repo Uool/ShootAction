@@ -16,7 +16,7 @@ public class TaskAttack : Node
     {
         _transform = transform;
         _enemyController = enemyController;
-        _impactVfxPrefab = _enemyController.weaponController.impactVfxPrefab;
+        //_impactVfxPrefab = _enemyController.weaponController.impactVfxPrefab;
     }
 
     public override NodeState Evaluate()

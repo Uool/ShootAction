@@ -132,9 +132,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 30326439}
-  - component: {fileID: 30326440}
   - component: {fileID: 30326441}
   - component: {fileID: 30326442}
+  - component: {fileID: 30326440}
+  - component: {fileID: 30326444}
+  - component: {fileID: 30326443}
   m_Layer: 8
   m_Name: MonsterEnemy_PigButcher
   m_TagString: Untagged
@@ -175,10 +177,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speed: 2
-  fovRange: 7
+  damage: 10
+  fovRange: 10
   attackRange: 2.7
-  attackTime: 3
-  isDead: 0
+  attackDelayTime: 0
+  target: {fileID: 0}
 --- !u!136 &30326441
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -209,6 +212,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
+--- !u!114 &30326443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30326438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc60b1f115060b43a719c83c9461082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+--- !u!114 &30326444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30326438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94019f40e87c6ff44bbb48bc506d1299, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageMultiplier: 1
 --- !u!1 &64142031
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!136 &1940271624
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -799,7 +828,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940271623}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.67, y: 0, z: 7.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

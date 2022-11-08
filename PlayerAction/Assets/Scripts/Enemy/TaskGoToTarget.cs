@@ -18,14 +18,16 @@ public class TaskGoToTarget : Node
     {
         Transform target = (Transform)GetData("target");
 
-        float distance = (target.position - _transform.position).sqrMagnitude;
+        // TODO: 임시로 타겟지정
+        float distance = (_enemyController.target.position - _transform.position).sqrMagnitude;
         if(distance > 0.01f)
         {
-            Vector3 targetPosition = new Vector3(target.position.x, 0f, target.position.z);
+            Vector3 targetPosition = new Vector3(_enemyController.target.position.x, 0f, _enemyController.target.position.z);
             _transform.position = Vector3.MoveTowards(_transform.position, targetPosition, _enemyController.speed * Time.deltaTime);
             _transform.LookAt(target);
+            state = NodeState.Running;
         }
-        state = NodeState.Running;
+        else if (_enemyController.)
         return state;
     }
 }

@@ -11,6 +11,15 @@ public abstract class Enemy : BehaviourTree.Tree
     [HideInInspector] public Weapon weaponController;
     #endregion
 
+    #region Parameter
+
+    protected bool _canMove = true;
+    public bool CanMove { get { return _canMove; } }
+
+    protected bool _isAttacking = false;
+    public bool IsAttacking { get { return _isAttacking; } }
+    #endregion
+
     #region Variables
     public LayerMask targetLayerMask;
     public float speed = 2f;
@@ -19,6 +28,8 @@ public abstract class Enemy : BehaviourTree.Tree
     public float attackRange = 2f;
     public float attackDelayTime;
     #endregion
+
+    public Transform target;
 
     protected override void Init()
     {
@@ -34,14 +45,17 @@ public abstract class Enemy : BehaviourTree.Tree
 
     public void Attack(int attackNumber)
     {
+        _canMove = false;
+        _isAttacking = true;
+
         _animator.SetActionTrigger(AnimatorTrigger.AttackTrigger, attackNumber);
         _animator.SetBool(AnimationParameters.Moving, false);
-
     }
 
     public void OutOfAttackRange()
     {
-        _animator.SetBool(AnimationParameters.Moving, false);
+        _animator.SetBool(AnimationParameters.Moving, true);
+        _canMove = true;
     }
 
     public void Dead()

@@ -9,8 +9,10 @@ public class EnemyController : Enemy
 {
     protected override void Init()
     {
+        base.Init();
         // TODO: 일단 임시로 플레이어로 (추후 건물도 따로 해야됨)
         targetLayerMask = LayerMask.GetMask("Player");
+        target = FindObjectOfType<PlayerController>().transform;
     }
     protected override Node SetupTree()
     {

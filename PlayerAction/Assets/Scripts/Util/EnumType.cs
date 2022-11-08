@@ -13,3 +13,9 @@ public enum CharacterState
     Idle = 0,
     Move = 1,
 }
+
+public enum EnemyAttackType
+{
+    Building = 0,
+    Player = 1,
+}
