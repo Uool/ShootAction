@@ -2,47 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour
+public class RangeWeaponController : Weapon
 {
     public Transform weaponMuzzle;
-    public GameObject impactVfx;
+    public GameObject _muzzleFlash;
 
     // Todo : 나중에는 Pooling으로 만들어야 함.
     public Projectile bulletPrefab;
 
-    public float Damage { get { return _damage; } }
-    private float _damage;
-
-    public float delayBetweenShots = 0.5f;
     public float bulletSpreadAngle = 0f;
 
-    private GameObject _muzzleFlash;
-    private AudioSource _shootAudioSource;
-    private float _lastTimeShot = Mathf.NegativeInfinity;
-
-    private void Awake()
+    private void Start()
     {
-        _shootAudioSource = GetComponent<AudioSource>();
         //_muzzleFlash = Resources.Load<GameObject>("");
     }
 
-
-    public bool TryShoot()
-    {
-        if (_lastTimeShot + delayBetweenShots < Time.time)
-        {
-            HandleShoot();
-            return true;
-        }
-        return false;
-    }
-
-    void HandleShoot()
+    public override void HandleAttack()
     {
         // 총알이 나가는 방향
         Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
         // TODO : Projectile 만들어야 함 (여기서 Pooling을 써야함)
-        
+
         Projectile bullet = Instantiate(bulletPrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
         bullet.Shoot(this);
 
@@ -56,7 +36,11 @@ public class WeaponController : MonoBehaviour
 
         }
 
-        _lastTimeShot = Time.time;
+        _lastTimeAttack = Time.time;
+    }
+
+    public void EndShoot()
+    {
 
     }
 

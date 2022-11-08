@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Attack : ActionHandler
+public class RangeAttack : ActionHandler
 {
     public override bool CanStartAction(PlayerController controller)
     {

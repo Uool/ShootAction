@@ -14,10 +14,8 @@ public class Projectile : MonoBehaviour
     private float _damage;
     private float _shootTime;
 
-
     // Vfx
     private GameObject _impactVfxPrefab;
-    private float _impactVfxSpawnOffset = 0.1f;
     private float _impactVfxLifeTime = 2.5f;
 
     private void OnEnable()
@@ -25,13 +23,13 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, maxLifeTime);
     }
 
-    public void Shoot(WeaponController controller)
+    public void Shoot(RangeWeaponController controller)
     {
-        _impactVfxPrefab = controller.impactVfx;
+        _impactVfxPrefab = controller.impactVfxPrefab;
         _damage = controller.Damage;
         _shootTime = Time.time;
         _velocity = transform.forward * shootSpeed;
-        
+
     }
 
     private void Update()
@@ -42,8 +40,8 @@ public class Projectile : MonoBehaviour
         closestHit.distance = Mathf.Infinity;
         bool foundHit = false;
 
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius, 
-            transform.forward.normalized, _velocity.magnitude, 
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, radius,
+            transform.forward.normalized, _velocity.magnitude,
             hitTableLayers, QueryTriggerInteraction.Collide);
 
         foreach (var hit in hits)
@@ -71,10 +69,14 @@ public class Projectile : MonoBehaviour
 
     void OnHit(Vector3 point, Vector3 normal, Collider collider)
     {
+        if (point == Vector3.zero)
+            return;
+
         Damageable damageable = collider.GetComponent<Damageable>();
         if (true == damageable)
         {
-            //TODO: 데미지 전달.
+            //TODO: 체력이 감소되어야 한다.
+            damageable.InflictDamage(_damage);
         }
 
         if (true == _impactVfxPrefab)

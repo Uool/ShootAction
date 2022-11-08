@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator _animator;
-    private WeaponController _weaponController;
+    private RangeWeaponController _weaponController;
 
     #region Move_Parameter
     private Vector3 _moveInput;
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
-        _weaponController = GetComponentInChildren<WeaponController>();
+        _weaponController = GetComponentInChildren<RangeWeaponController>();
 
         // 이건 나중에 Manager을 통해서 실행되게 끔 해야됨.
         SetupHandler();
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void SetupHandler()
     {
-        SetHandler(HandlerTypes.Attack, new Attack());
+        SetHandler(HandlerTypes.Attack, new RangeAttack());
     }
 
     public void SetHandler(string actionKey, IActionHandler handler)
@@ -130,11 +130,12 @@ public class PlayerController : MonoBehaviour
         _animator.SetFloat(AnimationParameters.MoveVelocity, _moveInput.magnitude);
         _animator.SetBool(AnimationParameters.MousePressed, true);
 
-        _weaponController.TryShoot();
+        _weaponController.TryAttack();
     }
     public void EndAttack()
     {
         _animator.SetBool(AnimationParameters.MousePressed, false);
+        //_weaponController.();
     }
 
     #endregion

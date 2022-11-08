@@ -202,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLifeTime: 3
-  shootSpeed: 20
+  shootSpeed: 40
   radius: 0.01
   hitTableLayers:
     serializedVersion: 2
