@@ -27,7 +27,8 @@ public class TaskGoToTarget : Node
             _transform.LookAt(target);
             state = NodeState.Running;
         }
-        else if (_enemyController.)
+        // Todo : 적이 이동하면서 때리러 온다. 이게 계속 작동되서 그럼
+        //else if (_enemyController.)
         return state;
     }
 }
