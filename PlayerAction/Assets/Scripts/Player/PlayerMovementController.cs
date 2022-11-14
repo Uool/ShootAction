@@ -55,7 +55,7 @@ public class PlayerMovementController : StateMachine
         else
             transform.rotation = UpdatePlayerRotation();
 
-        if (!_playerController.isDead && _playerController.canMove)
+        if (false == _playerController.isDead && _playerController.canMove)
         {
             if (_currentVelocity.magnitude > 0f)
             {

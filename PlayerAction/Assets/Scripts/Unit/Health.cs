@@ -48,6 +48,8 @@ public class Health : MonoBehaviour
         if (trueHealAmount > 0f)
             onDamaged?.Invoke(damage);
 
+        Debug.Log($"Object Name : {gameObject.name}, Health : {CurrentHealth}");
+
         HandleDeath();
     }
 

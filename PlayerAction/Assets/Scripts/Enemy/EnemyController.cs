@@ -29,7 +29,6 @@ public class EnemyController : Enemy
             }),
             new Sequence(new List<Node>
             {
-                new CheckTargetInFOVRange(this, transform),
                 new TaskGoToTarget(this, transform),
             }),
         });

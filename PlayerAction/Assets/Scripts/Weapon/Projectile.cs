@@ -12,24 +12,30 @@ public class Projectile : MonoBehaviour
     // Bullet
     private Vector3 _velocity;
     private float _damage;
-    private float _shootTime;
-
+    private TrailRenderer _trail;
+    private WaitForSeconds _delayTime;
     // Vfx
     private GameObject _impactVfxPrefab;
     private float _impactVfxLifeTime = 2.5f;
 
     private void OnEnable()
     {
-        Destroy(gameObject, maxLifeTime);
+        if (null == _delayTime)
+            _delayTime = new WaitForSeconds(maxLifeTime);
+
+        if (null == _trail)
+            _trail = GetComponentInChildren<TrailRenderer>();
+
+        
+        StopCoroutine("coDelayDestroy");
+        StartCoroutine(coDelayDestroy());
     }
 
     public void Shoot(RangeWeaponController controller)
     {
         _impactVfxPrefab = controller.impactVfxPrefab;
         _damage = controller.Damage;
-        _shootTime = Time.time;
         _velocity = transform.forward * shootSpeed;
-
     }
 
     private void Update()
@@ -87,6 +93,14 @@ public class Projectile : MonoBehaviour
                 Destroy(impact.gameObject, _impactVfxLifeTime);
             }
         }
-        Destroy(this.gameObject);
+        _trail.Clear();
+        Managers.Resource.Destroy(this.gameObject);
+    }
+
+    IEnumerator coDelayDestroy()
+    {
+        yield return _delayTime;
+        _trail.Clear();
+        Managers.Resource.Destroy(gameObject);
     }
 }

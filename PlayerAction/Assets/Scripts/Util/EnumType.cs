@@ -19,3 +19,10 @@ public enum EnemyAttackType
     Building = 0,
     Player = 1,
 }
+
+public enum EnemyType
+{
+    MonsterOneHand,
+    MonsterTwoHand,
+    HumanOneHand,
+}

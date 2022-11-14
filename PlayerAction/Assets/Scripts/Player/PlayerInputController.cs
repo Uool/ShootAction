@@ -42,9 +42,12 @@ public class PlayerInputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Moving();
-        Facing();
-        Attacking();
+        if (false == _playerController.isDead)
+        {
+            Moving();
+            Facing();
+            Attacking();
+        }        
     }
 
     private bool HasMoveInput() => _moveInput.magnitude > 0.1f;

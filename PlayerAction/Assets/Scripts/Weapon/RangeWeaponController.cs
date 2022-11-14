@@ -6,8 +6,6 @@ public class RangeWeaponController : Weapon
 {
     public Transform weaponMuzzle;
     public GameObject _muzzleFlash;
-
-    // Todo : 나중에는 Pooling으로 만들어야 함.
     public Projectile bulletPrefab;
 
     public float bulletSpreadAngle = 0f;
@@ -23,8 +21,9 @@ public class RangeWeaponController : Weapon
         Vector3 shotDirection = GetShotDirectionWithinSpread(weaponMuzzle);
         // TODO : Projectile 만들어야 함 (여기서 Pooling을 써야함)
 
-        Projectile bullet = Instantiate(bulletPrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
-        bullet.Shoot(this);
+        //Projectile bullet = Instantiate(bulletPrefab, weaponMuzzle.position, Quaternion.LookRotation(shotDirection));
+        Projectile bullet = Managers.Resource.Instantiate(bulletPrefab.gameObject, weaponMuzzle.position, Quaternion.LookRotation(shotDirection)).GetComponent<Projectile>();
+        bullet?.Shoot(this);
 
         // Todo: Muzzle Flash (이미 이펙트로 있음)
         if (null == _muzzleFlash)

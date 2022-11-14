@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Animator _animator;
+    private Health _health;
     private RangeWeaponController _weaponController;
 
     #region Move_Parameter
@@ -40,6 +41,9 @@ public class PlayerController : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _weaponController = GetComponentInChildren<RangeWeaponController>();
+
+        _health = GetComponent<Health>();
+        _health.onDie += Die;
 
         // 이건 나중에 Manager을 통해서 실행되게 끔 해야됨.
         SetupHandler();
@@ -136,6 +140,16 @@ public class PlayerController : MonoBehaviour
     {
         _animator.SetBool(AnimationParameters.MousePressed, false);
         //_weaponController.();
+    }
+
+    #endregion
+
+    #region Die
+
+    public void Die()
+    {
+        isDead = true;
+        _animator.SetAnimatorTrigger(AnimatorTrigger.DeathTrigger);
     }
 
     #endregion

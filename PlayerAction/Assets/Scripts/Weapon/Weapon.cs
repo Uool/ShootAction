@@ -7,6 +7,7 @@ public abstract class Weapon : MonoBehaviour
     public GameObject impactVfxPrefab;
     public float delayBetweenAttack = 0.5f;
 
+    protected GameObject _Owner;
     protected AudioSource _attackSound;
     protected float _lastTimeAttack = Mathf.NegativeInfinity;
 
@@ -17,6 +18,11 @@ public abstract class Weapon : MonoBehaviour
     {
         _damage = damage;
         delayBetweenAttack = attackDelayTime;
+    }
+
+    public void SetOwner(GameObject owner)
+    {
+        _Owner = owner;
     }
 
     public bool TryAttack()
@@ -30,5 +36,4 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public abstract void HandleAttack();
-
 }
