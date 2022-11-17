@@ -7,15 +7,16 @@ public class WallCollision : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.01f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, .01f);
 
         foreach (Collider collider in colliders)
         {
-            if(collider.tag == "Wall" || collider.tag == "Door")
+            if (collider.tag == "Door")
             {
                 Destroy(gameObject);
                 return;
             }
         }
+        GetComponent<Collider>().enabled = true;
     }
 }

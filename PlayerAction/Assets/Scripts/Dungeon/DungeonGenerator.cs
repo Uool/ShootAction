@@ -18,7 +18,7 @@ public class DungeonGenerator : MonoBehaviour
         public Vector2Int maxPosition;
 
         public bool obligtory;  // 해당 방이 반드시 있어야 하는지에 대한 여부
-
+        public bool isExisted;
         public int ProbabilityOfSpawning(int x, int y)
         {
             // 0 - cannot Spawn, 1 - can spawn, 2 - has to spawn
@@ -46,7 +46,6 @@ public class DungeonGenerator : MonoBehaviour
         MazeGenerator();
     }
 
-
     void GenerateDungeon()
     {
         for (int i = 0; i < size.x; i++)
@@ -62,9 +61,10 @@ public class DungeonGenerator : MonoBehaviour
                     for (int k = 0; k < rooms.Length; k++)
                     {
                         int p = rooms[k].ProbabilityOfSpawning(i, j);
-                        if (p == 2)
+                        if (p == 2 && false == rooms[k].isExisted)
                         {
                             randomRoom = k;
+                            rooms[k].isExisted = true;
                             break;
                         }
                         else if (p == 1)
@@ -119,13 +119,9 @@ public class DungeonGenerator : MonoBehaviour
             if (neighbors.Count == 0)
             {
                 if (path.Count == 0)
-                {
                     break;
-                }
                 else
-                {
                     currentCell = path.Pop();
-                }
             }
             else
             {

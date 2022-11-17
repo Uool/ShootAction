@@ -6,6 +6,8 @@ public class RoomBehaviour : MonoBehaviour
 {
     public GameObject[] walls;  // 0-up, 1-down, 2-right, 3-left;
     public GameObject[] doors;
+    public GameObject mainPanel;
+    public GameObject[] subPanel;
 
     public void UpdateRoom(bool[] status)
     {
