@@ -33,14 +33,13 @@ public class DungeonGenerator : MonoBehaviour
     }    
 
     public Vector2Int size;
-    public int startPos = 0;
+    public int startPos;
+    public int endPos;
     public Rule[] rooms;
     public Vector2 offset;  // 방 사이간의 거리
 
     List<Cell> board;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         MazeGenerator();
@@ -63,10 +62,22 @@ public class DungeonGenerator : MonoBehaviour
                         int p = rooms[k].ProbabilityOfSpawning(i, j);
                         if (p == 2 && false == rooms[k].isExisted)
                         {
-                            randomRoom = k;
+                            // 시작지점
+                            if ((i + j * size.x) == startPos)
+                                randomRoom = (int)RoomType.Start;
+                            else if ((i + j * size.x) == endPos)
+                                randomRoom = (int)RoomType.End;
+                            // 상점을 어떻게 해야 랜덤한 위치로 보낼 수 있을까?
+                            // TODO: MinPos / maxpos를 랜덤으로 하나 만들어서 보내버리던가 해야되나?
+                            else if (k != (int)RoomType.Start && k != (int)RoomType.End)
+                                randomRoom = k;
+                            else
+                                continue;
+
                             rooms[k].isExisted = true;
                             break;
                         }
+                        
                         else if (p == 1)
                             availableRooms.Add(k);
                     }
@@ -110,6 +121,7 @@ public class DungeonGenerator : MonoBehaviour
 
             board[currentCell].visited = true;
 
+            //if (currentCell == endPos)
             if (currentCell == board.Count - 1)
                 break;
 
@@ -127,6 +139,7 @@ public class DungeonGenerator : MonoBehaviour
             {
                 path.Push(currentCell);
 
+                // 이웃하는 Cell 중에 하나를 택한다.
                 int newCell = neighbors[Random.Range(0, neighbors.Count)];
                 if (newCell > currentCell)
                 {

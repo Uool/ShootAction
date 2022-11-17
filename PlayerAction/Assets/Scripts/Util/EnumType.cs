@@ -34,3 +34,9 @@ public enum RoomDir
     Right,
     Left,
 }
+
+public enum RoomType
+{
+    Start,
+    End,
+}

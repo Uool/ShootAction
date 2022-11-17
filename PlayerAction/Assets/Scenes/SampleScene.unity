@@ -979,17 +979,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   size: {x: 5, y: 5}
-  startPos: 0
+  startPos: 12
+  endPos: 2
   rooms:
-  - room: {fileID: 7672016298067328737, guid: 2ff9e43fc37a4b2459ca5481a1ee42c6, type: 3}
+  - room: {fileID: 3639429398189783238, guid: 879e82dc09d9d354bad8edb6fca2f354, type: 3}
     minPosition: {x: 0, y: 0}
     maxPosition: {x: 5, y: 5}
-    obligtory: 0
+    obligtory: 1
     isExisted: 0
-  - room: {fileID: 4629436360381088869, guid: 0cb6d4c3ec66a084e9556945c08d38f9, type: 3}
+  - room: {fileID: 3823099174854572802, guid: 1278645684fae204da187f6c167da505, type: 3}
     minPosition: {x: 0, y: 0}
     maxPosition: {x: 5, y: 5}
-    obligtory: 0
+    obligtory: 1
     isExisted: 0
   - room: {fileID: 5623633679582747575, guid: dd6aa7f0ebc404d46b3d071c5019397a, type: 3}
     minPosition: {x: 0, y: 0}
@@ -1007,19 +1008,19 @@ MonoBehaviour:
     obligtory: 0
     isExisted: 0
   - room: {fileID: 8217661946107073305, guid: 24556440d43f67643a7e6888870cecdd, type: 3}
-    minPosition: {x: 1, y: 1}
-    maxPosition: {x: 5, y: 5}
-    obligtory: 1
-    isExisted: 0
-  - room: {fileID: 3639429398189783238, guid: 879e82dc09d9d354bad8edb6fca2f354, type: 3}
     minPosition: {x: 0, y: 0}
-    maxPosition: {x: 0, y: 0}
-    obligtory: 1
-    isExisted: 0
-  - room: {fileID: 3823099174854572802, guid: 1278645684fae204da187f6c167da505, type: 3}
-    minPosition: {x: 3, y: 4}
     maxPosition: {x: 5, y: 5}
     obligtory: 1
+    isExisted: 0
+  - room: {fileID: 7672016298067328737, guid: 2ff9e43fc37a4b2459ca5481a1ee42c6, type: 3}
+    minPosition: {x: 0, y: 0}
+    maxPosition: {x: 5, y: 5}
+    obligtory: 0
+    isExisted: 0
+  - room: {fileID: 4629436360381088869, guid: 0cb6d4c3ec66a084e9556945c08d38f9, type: 3}
+    minPosition: {x: 0, y: 0}
+    maxPosition: {x: 5, y: 5}
+    obligtory: 0
     isExisted: 0
   offset: {x: 15.2, y: 15.2}
 --- !u!4 &1956347339
