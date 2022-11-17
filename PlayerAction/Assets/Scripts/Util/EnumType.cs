@@ -26,3 +26,11 @@ public enum EnemyType
     MonsterTwoHand,
     HumanOneHand,
 }
+
+public enum RoomDir
+{
+    Up,
+    Down,
+    Right,
+    Left,
+}

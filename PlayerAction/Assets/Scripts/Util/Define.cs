@@ -23,12 +23,4 @@ public class Define
         Click,
         Drag,
     }
-
-    public enum ETurretType
-    { 
-        MachineGun,
-        Rocket,
-        Laser,
-        PowerPole,
-    }
 }

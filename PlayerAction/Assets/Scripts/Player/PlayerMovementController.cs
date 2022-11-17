@@ -27,8 +27,8 @@ public class PlayerMovementController : StateMachine
     public void SetupMovement()
     {
         _playerController = GetComponent<PlayerController>();
-        _camController = FindObjectOfType<CameraController>();
-        _camController.SetCamera();
+        //_camController = FindObjectOfType<CameraController>();
+        //_camController.SetCamera();
         _playerRigid = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
 
