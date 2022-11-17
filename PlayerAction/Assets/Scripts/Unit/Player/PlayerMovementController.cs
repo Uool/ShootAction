@@ -6,8 +6,8 @@ public class PlayerMovementController : StateMachine
 {
     private PlayerController _playerController;
     private CameraController _camController;
+    private CharacterController _charController;
     private Animator _animator;
-    private Rigidbody _playerRigid;
 
     // Movement
     private Vector3 _currentVelocity;
@@ -27,9 +27,9 @@ public class PlayerMovementController : StateMachine
     public void SetupMovement()
     {
         _playerController = GetComponent<PlayerController>();
+        _charController = GetComponent<CharacterController>();
         //_camController = FindObjectOfType<CameraController>();
         //_camController.SetCamera();
-        _playerRigid = GetComponent<Rigidbody>();
         _animator = GetComponentInChildren<Animator>();
 
         SetupHandler();
@@ -49,7 +49,8 @@ public class PlayerMovementController : StateMachine
     private void FixedUpdate()
     {
         //gameObject.SendMessage("StateUpdate", SendMessageOptions.DontRequireReceiver);
-        transform.position += _currentVelocity * Time.deltaTime;
+        //transform.position += _currentVelocity * Time.deltaTime;
+        _charController.Move(_currentVelocity * Time.deltaTime);
         if (_playerController.isFacing)
             transform.rotation = FacingPlayerRotation(_playerController.faceInput);
         else
@@ -108,6 +109,17 @@ public class PlayerMovementController : StateMachine
         {
             _playerController.TryStartAction(HandlerTypes.Idle);
         }
+
+        Vector3 capsuleBottomBeforeMove = GetCapsuleBottomHemisphere();
+        Vector3 capsuleTopBeforeMove = GetCapsuleTopHemisphere(_charController.height);
+        // 전방 벽 확인
+        if (Physics.CapsuleCast(capsuleBottomBeforeMove, capsuleTopBeforeMove, _charController.radius,
+            _currentVelocity.normalized, out RaycastHit hit, _currentVelocity.magnitude * Time.deltaTime, -1,
+            QueryTriggerInteraction.Ignore))
+        {
+            _currentVelocity = Vector3.ProjectOnPlane(_currentVelocity, hit.normal);
+            Debug.Log($"Velocity : {_currentVelocity}, hitMesh : {hit.collider.gameObject.name}");
+        }
     }
 
     private void Move_ExitState()
@@ -132,5 +144,15 @@ public class PlayerMovementController : StateMachine
         Quaternion lookRotation = Quaternion.LookRotation(lookDir, Vector3.up);
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * _turnSpeed).eulerAngles;
         return Quaternion.Euler(rotation.x, rotation.y, 0f);
+    }
+
+    Vector3 GetCapsuleBottomHemisphere()
+    {
+        return transform.position + (transform.up * _charController.radius);
+    }
+
+    Vector3 GetCapsuleTopHemisphere(float height)
+    {
+        return transform.position + (transform.up * (height - _charController.radius));
     }
 }
